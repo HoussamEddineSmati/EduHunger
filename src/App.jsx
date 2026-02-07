@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard';
 import Courses from './pages/Courses';
 import Assessment from './pages/Assessment';
 import Home from './pages/Home';
+import About from './pages/About';
 
 // Protected Route specific component
 const ProtectedRoute = ({ children }) => {
@@ -61,6 +62,10 @@ function App() {
                             <Register />
                         </PublicRoute>
                     } />
+
+                    {/* Public About Page */}
+                    <Route path="/about" element={<About />} />
+
 
                     {/* Standalone Full-Screen Pages (like Home) */}
                     <Route path="/dashboard" element={

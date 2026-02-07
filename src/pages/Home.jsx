@@ -17,7 +17,7 @@ const Home = () => {
                     {/* Center Nav Links */}
                     <div className="hidden md:flex items-center gap-10">
                         <Link to="/courses" className="text-white/80 hover:text-white text-sm tracking-wide transition-colors">Discover</Link>
-                        <a href="#about" className="text-white/80 hover:text-white text-sm tracking-wide transition-colors">About us</a>
+                        <Link to="/about" className="text-white/80 hover:text-white text-sm tracking-wide transition-colors">About us</Link>
                         <Link to="/assessment" className="text-white/80 hover:text-white text-sm tracking-wide transition-colors">Assessment</Link>
                         <Link to="/login" className="text-white/80 hover:text-white text-sm tracking-wide transition-colors">Sign In</Link>
                     </div>
