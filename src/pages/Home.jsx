@@ -11,7 +11,7 @@ const Home = () => {
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
                     {/* Logo */}
                     <div className="flex items-center gap-2">
-                        <span className="text-white text-xl font-bold tracking-widest">EDULEARN</span>
+                        <span className="text-white text-xl font-bold tracking-widest">EDUHUNGER</span>
                     </div>
 
                     {/* Center Nav Links */}
@@ -37,7 +37,7 @@ const Home = () => {
             </nav>
 
             {/* Hero Content */}
-            <div className="max-w-7xl mx-auto px-8 mt-8 lg:mt-16">
+            <div className="max-w-7xl mx-auto px-8 mt-8 lg:mt-16 pb-80 lg:pb-96">
                 {/* Main Heading */}
                 <h1 className="text-6xl sm:text-7xl lg:text-[110px] font-extralight text-white leading-none tracking-tight text-center">
                     Elevate Your

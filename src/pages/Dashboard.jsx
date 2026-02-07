@@ -65,7 +65,7 @@ const Dashboard = () => {
             <div className="max-w-7xl mx-auto flex items-center justify-between">
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-2">
-                    <span className="text-white text-xl font-bold tracking-widest">EDULEARN</span>
+                    <span className="text-white text-xl font-bold tracking-widest">EDUHUNGER</span>
                 </Link>
 
                 {/* Center Nav Links */}

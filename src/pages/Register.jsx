@@ -66,7 +66,7 @@ const Register = () => {
             {/* Navbar */}
             <nav className="px-8 py-6">
                 <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <Link to="/" className="text-white text-xl font-bold tracking-widest">EDULEARN</Link>
+                    <Link to="/" className="text-white text-xl font-bold tracking-widest">EDUHUNGER</Link>
                     <Link to="/login" className="px-5 py-2 border border-white/30 text-white text-sm rounded-full hover:bg-white/10 transition-all">
                         Sign In
                     </Link>

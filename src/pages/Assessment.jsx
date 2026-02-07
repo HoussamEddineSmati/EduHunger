@@ -73,7 +73,7 @@ const Assessment = () => {
             <div className="max-w-7xl mx-auto flex items-center justify-between">
                 {/* Logo */}
                 <Link to="/" className="flex items-center gap-2">
-                    <span className="text-white text-xl font-bold tracking-widest">EDULEARN</span>
+                    <span className="text-white text-xl font-bold tracking-widest">EDUHUNGER</span>
                 </Link>
 
                 {/* Center Nav Links */}
@@ -337,14 +337,14 @@ const Assessment = () => {
                                         onClick={() => handleAnswer(option.id)}
                                         disabled={selectedAnswer !== null}
                                         className={`w-full text-left p-5 rounded-2xl border transition-all duration-300 ${isSelected
-                                                ? 'border-orange-400 bg-orange-400/20 shadow-lg scale-[1.02]'
-                                                : 'border-white/20 hover:border-white/40 hover:bg-white/5'
+                                            ? 'border-orange-400 bg-orange-400/20 shadow-lg scale-[1.02]'
+                                            : 'border-white/20 hover:border-white/40 hover:bg-white/5'
                                             } ${selectedAnswer !== null ? 'cursor-not-allowed' : 'cursor-pointer'}`}
                                     >
                                         <div className="flex items-center gap-4">
                                             <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center font-bold transition-all ${isSelected
-                                                    ? 'border-orange-400 bg-orange-400 text-white scale-110'
-                                                    : 'border-white/30 text-white/60'
+                                                ? 'border-orange-400 bg-orange-400 text-white scale-110'
+                                                : 'border-white/30 text-white/60'
                                                 }`}>
                                                 {letter}
                                             </div>
