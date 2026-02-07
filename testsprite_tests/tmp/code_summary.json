@@ -1,0 +1,125 @@
+{
+    "projectName": "career_Improver",
+    "description": "A career improvement platform with skill assessments and course recommendations",
+    "techStack": {
+        "frontend": [
+            "React 18",
+            "Vite",
+            "TailwindCSS",
+            "React Router DOM"
+        ],
+        "state": [
+            "React Context API",
+            "localStorage"
+        ],
+        "styling": [
+            "TailwindCSS",
+            "CSS"
+        ],
+        "icons": [
+            "Lucide React"
+        ]
+    },
+    "features": [
+        {
+            "name": "Authentication",
+            "description": "User login and registration with localStorage persistence",
+            "components": [
+                "Login.jsx",
+                "Register.jsx",
+                "AuthContext.jsx",
+                "authService.js"
+            ]
+        },
+        {
+            "name": "Skill Assessment",
+            "description": "Quiz-based assessments with 15 questions per domain (5 domains, 75 questions total)",
+            "components": [
+                "Assessment.jsx",
+                "assessmentService.js",
+                "questionsData.js"
+            ],
+            "domains": [
+                "Frontend Development",
+                "Backend Development",
+                "Cloud Computing",
+                "Databases",
+                "Security"
+            ]
+        },
+        {
+            "name": "Courses",
+            "description": "Course catalog with filtering and search",
+            "components": [
+                "Courses.jsx",
+                "courseService.js"
+            ]
+        },
+        {
+            "name": "Dashboard",
+            "description": "User dashboard showing progress and recommendations",
+            "components": [
+                "Dashboard.jsx"
+            ]
+        },
+        {
+            "name": "Home Page",
+            "description": "Landing page with hero section and navigation",
+            "components": [
+                "Home.jsx",
+                "HeroBackground.jsx"
+            ]
+        }
+    ],
+    "database": {
+        "type": "localStorage Mock Database",
+        "file": "mockDatabase.js",
+        "tables": [
+            "users",
+            "skill_domains",
+            "assessments",
+            "questions",
+            "answer_options",
+            "assessment_attempts",
+            "user_answers",
+            "skill_results",
+            "courses",
+            "lessons",
+            "course_enrollments",
+            "lesson_progress",
+            "course_recommendations"
+        ]
+    },
+    "routing": {
+        "public": [
+            "/",
+            "/login",
+            "/register"
+        ],
+        "protected": [
+            "/dashboard",
+            "/courses",
+            "/assessment"
+        ]
+    },
+    "testRequirements": [
+        {
+            "id": "TEST-001",
+            "name": "Assessment Questions Count",
+            "description": "Verify each assessment domain has exactly 15 questions",
+            "priority": "high"
+        },
+        {
+            "id": "TEST-002",
+            "name": "Frontend Assessment",
+            "description": "Complete Frontend Development assessment and verify 15 questions are shown",
+            "priority": "high"
+        },
+        {
+            "id": "TEST-003",
+            "name": "Assessment Flow",
+            "description": "Navigate to assessment, select a domain, answer all 15 questions, see results",
+            "priority": "high"
+        }
+    ]
+}

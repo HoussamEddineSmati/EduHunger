@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "project": "Career Improver",
+    "date": "2026-02-06",
+    "prepared_by": "AI-generated based on raw PRD and code summary"
+  },
+  "product_overview": "Career Improver is a career development platform designed to help users evaluate their skills across key software engineering domains and receive tailored course recommendations to enhance their career paths.",
+  "core_goals": [
+    "Enable users to register and authenticate securely with persistent sessions.",
+    "Provide comprehensive skill assessments across five domains with standardized quizzes.",
+    "Deliver personalized course recommendations based on assessment results.",
+    "Offer an intuitive and visually appealing user interface with responsive design.",
+    "Ensure data persistence and performance through localStorage utilization."
+  ],
+  "key_features": [
+    "User Authentication with registration, login, protected routes, and logout.",
+    "Skill Assessment system covering Frontend Development, Backend Development, Cloud Computing, Databases, and Security with 15 questions each.",
+    "Course Catalog with filtering by skill level and searching by course title.",
+    "User Dashboard displaying progress, assessment results, and course recommendations.",
+    "Landing Home Page with navigational elements and engaging design.",
+    "Assessment flow guiding users from domain selection to quiz completion and result display."
+  ],
+  "user_flow_summary": [
+    "User registers or logs in through secure authentication.",
+    "User accesses the dashboard after login to view progress and recommendations.",
+    "User navigates to the assessment page and selects a skill domain to test.",
+    "User completes a 15-question quiz per selected domain sequentially.",
+    "User views detailed results showing score percentage and skill classification.",
+    "User browses and searches courses relevant to their skill level on the courses page."
+  ],
+  "validation_criteria": [
+    "Each skill domain assessment contains exactly 15 questions as required.",
+    "Assessment flow correctly implements domain selection, quiz progression, and result calculation.",
+    "User authentication persists session data reliably in localStorage.",
+    "Course catalog filtering and search return accurate results.",
+    "Dashboard correctly reflects user progress and recommended courses.",
+    "Responsive UI adheres to the design guidelines with glassmorphism and orange accent usage."
+  ],
+  "code_summary": {
+    "projectName": "career_Improver",
+    "description": "A career improvement platform with skill assessments and course recommendations",
+    "techStack": {
+      "frontend": [
+        "React 18",
+        "Vite",
+        "TailwindCSS",
+        "React Router DOM"
+      ],
+      "state": [
+        "React Context API",
+        "localStorage"
+      ],
+      "styling": [
+        "TailwindCSS",
+        "CSS"
+      ],
+      "icons": [
+        "Lucide React"
+      ]
+    },
+    "features": [
+      {
+        "name": "Authentication",
+        "description": "User login and registration with localStorage persistence",
+        "components": [
+          "Login.jsx",
+          "Register.jsx",
+          "AuthContext.jsx",
+          "authService.js"
+        ]
+      },
+      {
+        "name": "Skill Assessment",
+        "description": "Quiz-based assessments with 15 questions per domain (5 domains, 75 questions total)",
+        "components": [
+          "Assessment.jsx",
+          "assessmentService.js",
+          "questionsData.js"
+        ],
+        "domains": [
+          "Frontend Development",
+          "Backend Development",
+          "Cloud Computing",
+          "Databases",
+          "Security"
+        ]
+      },
+      {
+        "name": "Courses",
+        "description": "Course catalog with filtering and search",
+        "components": [
+          "Courses.jsx",
+          "courseService.js"
+        ]
+      },
+      {
+        "name": "Dashboard",
+        "description": "User dashboard showing progress and recommendations",
+        "components": [
+          "Dashboard.jsx"
+        ]
+      },
+      {
+        "name": "Home Page",
+        "description": "Landing page with hero section and navigation",
+        "components": [
+          "Home.jsx",
+          "HeroBackground.jsx"
+        ]
+      }
+    ],
+    "database": {
+      "type": "localStorage Mock Database",
+      "file": "mockDatabase.js",
+      "tables": [
+        "users",
+        "skill_domains",
+        "assessments",
+        "questions",
+        "answer_options",
+        "assessment_attempts",
+        "user_answers",
+        "skill_results",
+        "courses",
+        "lessons",
+        "course_enrollments",
+        "lesson_progress",
+        "course_recommendations"
+      ]
+    },
+    "routing": {
+      "public": [
+        "/",
+        "/login",
+        "/register"
+      ],
+      "protected": [
+        "/dashboard",
+        "/courses",
+        "/assessment"
+      ]
+    },
+    "testRequirements": [
+      {
+        "id": "TEST-001",
+        "name": "Assessment Questions Count",
+        "description": "Verify each assessment domain has exactly 15 questions",
+        "priority": "high"
+      },
+      {
+        "id": "TEST-002",
+        "name": "Frontend Assessment",
+        "description": "Complete Frontend Development assessment and verify 15 questions are shown",
+        "priority": "high"
+      },
+      {
+        "id": "TEST-003",
+        "name": "Assessment Flow",
+        "description": "Navigate to assessment, select a domain, answer all 15 questions, see results",
+        "priority": "high"
+      }
+    ]
+  }
+}

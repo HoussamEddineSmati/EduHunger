@@ -1,0 +1,113 @@
+[
+    {
+        "id": "REG001",
+        "title": "User Registration - Database Persistence",
+        "description": "Verify that when a user registers, their data is saved to localStorage 'users' table and persists after page refresh",
+        "category": "functional",
+        "priority": "Critical",
+        "steps": [
+            {
+                "type": "action",
+                "description": "Navigate to http://localhost:5173/register"
+            },
+            {
+                "type": "action",
+                "description": "Input name: 'Test User', email: 'testuser@example.com', password: 'password123', confirmPassword: 'password123'"
+            },
+            {
+                "type": "action",
+                "description": "Click 'Create Account' button"
+            },
+            {
+                "type": "assertion",
+                "description": "Verify redirect to dashboard occurs"
+            },
+            {
+                "type": "assertion",
+                "description": "Open browser console and check localStorage.getItem('users') contains the new user"
+            },
+            {
+                "type": "assertion",
+                "description": "Verify the user object has id, name, email, and created_at fields"
+            },
+            {
+                "type": "action",
+                "description": "Refresh the page"
+            },
+            {
+                "type": "assertion",
+                "description": "Verify the user is still logged in (session persists)"
+            },
+            {
+                "type": "assertion",
+                "description": "Verify localStorage.getItem('users') still contains the user data"
+            }
+        ]
+    },
+    {
+        "id": "REG002",
+        "title": "User Registration - Current User Session",
+        "description": "Verify that after registration, the current user session is properly set in localStorage",
+        "category": "functional",
+        "priority": "High",
+        "steps": [
+            {
+                "type": "action",
+                "description": "Navigate to registration page"
+            },
+            {
+                "type": "action",
+                "description": "Complete registration form with valid data"
+            },
+            {
+                "type": "action",
+                "description": "Submit registration"
+            },
+            {
+                "type": "assertion",
+                "description": "Check localStorage.getItem('career_improver_current_user') is set"
+            },
+            {
+                "type": "assertion",
+                "description": "Verify the current user object matches the registered user data"
+            }
+        ]
+    },
+    {
+        "id": "REG003",
+        "title": "Database Version Update - User Data Preservation",
+        "description": "Verify that when database version changes, existing user data is preserved or users can re-register",
+        "category": "functional",
+        "priority": "High",
+        "steps": [
+            {
+                "type": "action",
+                "description": "Check current localStorage data for 'db_version' and 'users' table"
+            },
+            {
+                "type": "assertion",
+                "description": "Document the database version and user count"
+            },
+            {
+                "type": "action",
+                "description": "Register a new user"
+            },
+            {
+                "type": "assertion",
+                "description": "Verify user is added to the users table"
+            },
+            {
+                "type": "action",
+                "description": "Simulate database version change by manually changing db_version in localStorage"
+            },
+            {
+                "type": "action",
+                "description": "Refresh the page"
+            },
+            {
+                "type": "assertion",
+                "description": "Verify what happens to user data - either preserved or cleared (document behavior)"
+            }
+        ]
+    }
+]

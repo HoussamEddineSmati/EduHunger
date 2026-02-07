@@ -1,0 +1,15 @@
+{
+  "status": "init",
+  "executionArgs": {
+    "projectName": "career_Improver",
+    "projectPath": "d:\\Project\\career_Improver",
+    "testIds": [
+      "TC006",
+      "TC007"
+    ],
+    "additionalInstruction": "Focus on verifying that each assessment domain has exactly 15 questions. The app is running on http://localhost:5173. Login with test user first, then navigate to assessment to select a domain and verify 15 questions are loaded.",
+    "envs": {
+      "API_KEY": "sk-user-OF51gNlB8OvGLikGBf2TcFE6Ml6gzj7vIRI42f7VGexjSqhnorBiIPSEe594haUEbPwyXa_5FziOvMVW7viaSic_1OmQDUunQE2BluI4rGGyBe9Yzbv3-Ipw2Q1OD_oRhSI"
+    }
+  }
+}

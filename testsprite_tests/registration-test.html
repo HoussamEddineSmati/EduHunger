@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Database Test</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .test-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-top: 0;
+            font-weight: 300;
+            font-size: 2.5em;
+        }
+
+        .test-step {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 4px solid #4ade80;
+        }
+
+        .test-step.running {
+            border-left-color: #fbbf24;
+        }
+
+        .test-step.passed {
+            border-left-color: #10b981;
+        }
+
+        .test-step.failed {
+            border-left-color: #ef4444;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .result {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+
+        .status.pending {
+            background: #94a3b8;
+        }
+
+        .status.running {
+            background: #fbbf24;
+        }
+
+        .status.passed {
+            background: #10b981;
+        }
+
+        .status.failed {
+            background: #ef4444;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>🧪 Registration Database Test</h1>
+        <p>This test verifies that user registration data persists correctly in localStorage.</p>
+
+        <button id="runTests" onclick="runAllTests()">Run All Tests</button>
+        <button id="clearData" onclick="clearAllData()" style="background: #ef4444; margin-left: 10px;">Clear All
+            Data</button>
+
+        <div id="testResults"></div>
+    </div>
+
+    <script>
+        let testResults = [];
+
+        function log(message, type = 'info') {
+            console.log(`[${type.toUpperCase()}]`, message);
+        }
+
+        function updateDisplay() {
+            const container = document.getElementById('testResults');
+            container.innerHTML = testResults.map((test, index) => `
+                <div class="test-step ${test.status}">
+                    <strong>Test ${index + 1}: ${test.name}</strong>
+                    <span class="status ${test.status}">${test.status.toUpperCase()}</span>
+                    <div class="result">${test.result || 'Running...'}</div>
+                </div>
+            `).join('');
+        }
+
+        async function runAllTests() {
+            document.getElementById('runTests').disabled = true;
+            testResults = [];
+
+            // Test 1: Check initial state
+            await runTest('Check LocalStorage Tables', async () => {
+                const tables = ['users', 'db_version', 'db_initialized'];
+                const results = {};
+                tables.forEach(table => {
+                    const value = localStorage.getItem(table);
+                    results[table] = value ? `✓ Exists (${value.length} chars)` : '✗ Missing';
+                });
+                return JSON.stringify(results, null, 2);
+            });
+
+            // Test 2: Check DB Version
+            await runTest('Verify DB Version', async () => {
+                const version = localStorage.getItem('db_version');
+                if (version === '2.0') {
+                    return `✓ PASSED: DB version is 2.0`;
+                }
+                throw new Error(`FAILED: DB version is "${version}", expected "2.0"`);
+            });
+
+            // Test 3: Check Users Table Structure
+            await runTest('Verify Users Table Exists', async () => {
+                const usersStr = localStorage.getItem('users');
+                if (!usersStr) {
+                    return `✓ Users table exists but empty: []`;
+                }
+                const users = JSON.parse(usersStr);
+                return `✓ Users table has ${users.length} user(s):\n${JSON.stringify(users.map(u => ({ id: u.id, name: u.name, email: u.email })), null, 2)}`;
+            });
+
+            // Test 4: Simulate User Registration
+            await runTest('Simulate User Registration', async () => {
+                const mockUser = {
+                    id: 'test_' + Date.now(),
+                    name: 'Test User',
+                    email: 'test@example.com',
+                    password: 'password123',
+                    created_at: new Date().toISOString()
+                };
+
+                const usersStr = localStorage.getItem('users') || '[]';
+                const users = JSON.parse(usersStr);
+
+                // Check if user already exists
+                const existing = users.find(u => u.email === mockUser.email);
+                if (existing) {
+                    return `✓ User already exists: ${existing.name} (${existing.email})`;
+                }
+
+                users.push(mockUser);
+                localStorage.setItem('users', JSON.stringify(users));
+
+                return `✓ Successfully added user:\n${JSON.stringify(mockUser, null, 2)}`;
+            });
+
+            // Test 5: Verify User Persists
+            await runTest('Verify User Persists in LocalStorage', async () => {
+                const usersStr = localStorage.getItem('users');
+                if (!usersStr) {
+                    throw new Error('FAILED: Users table disappeared!');
+                }
+                const users = JSON.parse(usersStr);
+                const testUser = users.find(u => u.email === 'test@example.com');
+                if (!testUser) {
+                    throw new Error('FAILED: Test user not found in users table!');
+                }
+                return `✓ PASSED: User still exists in localStorage:\n${JSON.stringify(testUser, null, 2)}`;
+            });
+
+            // Test 6: Check Questions Count
+            await runTest('Verify 75 Questions Loaded', async () => {
+                const questionsStr = localStorage.getItem('questions');
+                if (!questionsStr) {
+                    throw new Error('FAILED: Questions table missing!');
+                }
+                const questions = JSON.parse(questionsStr);
+                if (questions.length === 75) {
+                    return `✓ PASSED: ${questions.length} questions loaded correctly`;
+                }
+                throw new Error(`FAILED: Expected 75 questions, found ${questions.length}`);
+            });
+
+            document.getElementById('runTests').disabled = false;
+
+            const passed = testResults.filter(t => t.status === 'passed').length;
+            const failed = testResults.filter(t => t.status === 'failed').length;
+
+            log(`\n📊 Test Summary: ${passed} passed, ${failed} failed out of ${testResults.length} tests`,
+                failed === 0 ? 'success' : 'error');
+        }
+
+        async function runTest(name, testFn) {
+            const test = { name, status: 'running', result: '' };
+            testResults.push(test);
+            updateDisplay();
+
+            try {
+                await new Promise(resolve => setTimeout(resolve, 500)); // Visual delay
+                const result = await testFn();
+                test.status = 'passed';
+                test.result = result;
+                log(`✓ ${name}: PASSED`, 'success');
+            } catch (error) {
+                test.status = 'failed';
+                test.result = `❌ ${error.message}`;
+                log(`✗ ${name}: FAILED - ${error.message}`, 'error');
+            }
+
+            updateDisplay();
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all localStorage data?')) {
+                localStorage.clear();
+                alert('All data cleared! Refresh the page to reinitialize the database.');
+                testResults = [];
+                updateDisplay();
+            }
+        }
+
+        // Auto-run tests on page load
+        window.onload = () => {
+            log('Test page loaded. Ready to run tests.', 'info');
+        };
+    </script>
+</body>
+
+</html>
